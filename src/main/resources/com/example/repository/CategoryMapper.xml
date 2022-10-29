@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.repository.CategoryMapper">
+
+<!-- DB登録 -->
+<insert id="insert">
+  INSERT INTO category
+        (parent_id, category_name, name_all)
+  VALUES
+        <foreach item="item" collection="list" separator=",">
+          (
+          #{item.parentId}
+          , #{item.categoryName}
+          , #{item.nameAll}
+          )
+        </foreach>
+</insert>
+
+<!-- カテゴリ名から大カテゴリのIDを取得 -->
+<select id="findByParentCategoryId" resultType="int">
+  SELECT
+        id
+  FROM
+        category
+  WHERE
+        category_name = #{categoryName}
+</select>
+
+<!-- カテゴリ名から中カテゴリの親IDを取得 -->
+<select id="findByChildCategoryOfParentId" resultType="int">
+  SELECT
+        id
+  FROM
+        category
+  WHERE
+        parent_id = #{parentId}
+  AND
+        category_name = #{categoryName}
+</select>
+
+</mapper>
