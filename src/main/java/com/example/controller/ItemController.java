@@ -31,4 +31,11 @@ public class ItemController {
 		model.addAttribute("itemList", itemList);
 		return "list";
 	}
+	
+	@RequestMapping("/showDetail")
+	public String showDetail(String id, Model model) {
+		Item item = itemService.getDetail(Integer.parseInt(id));
+		model.addAttribute("item", item);
+		return "detail";
+	}
 }

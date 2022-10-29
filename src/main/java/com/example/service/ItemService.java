@@ -25,4 +25,13 @@ public class ItemService {
 	public List<Item> getShowList(Pagenation pagenation) {
 		return itemMapper.findAll(pagenation);
 	}
+	
+	/**
+	 * idでitemの詳細情報を取得
+	 * @param id
+	 * @return
+	 */
+	public Item getDetail(int id) {
+		return itemMapper.findById(id);
+	}
 }

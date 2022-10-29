@@ -16,4 +16,11 @@ public interface ItemMapper {
 	 * @return
 	 */
 	public List<Item> findAll(Pagenation pagenation);
+	
+	/**
+	 * idでitemの詳細情報を取得
+	 * @param id
+	 * @return
+	 */
+	public Item findById(int id);
 }

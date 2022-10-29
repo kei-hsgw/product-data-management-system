@@ -116,7 +116,7 @@
         </thead>
         <tbody>
           <tr th:each="item : ${itemList}">
-            <td class="item-name" th:text="${item.name}"><a th:href="@{/item/detail?id=} + ${item.id}"></a></td>
+            <td class="item-name"><a th:href="@{/item/showDetail?id=} + ${item.id}" th:text="${item.name}"></a></td>
             <td class="item-price" th:text="${item.price}"></td>
             <td class="item-category" th:text="${item.category}"></td>
             <td class="item-brand" th:text="${item.brand}"></td>
