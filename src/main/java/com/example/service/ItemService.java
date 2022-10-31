@@ -31,7 +31,7 @@ public class ItemService {
 	 * @param id
 	 * @return
 	 */
-	public Item getDetail(int id) {
+	public Item getShowDetail(int id) {
 		return itemMapper.findById(id);
 	}
 }
