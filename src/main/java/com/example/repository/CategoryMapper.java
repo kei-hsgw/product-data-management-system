@@ -16,17 +16,37 @@ public interface CategoryMapper {
 	public void insert(List<Category> category);
 	
 	/**
-	 * カテゴリ名から大カテゴリのIDを取得
+	 * カテゴリ名から親カテゴリのIDを取得
 	 * @param categoryName
 	 * @return
 	 */
 	public int findByParentCategoryId(String categoryName);
 	
 	/**
-	 * カテゴリ名から中カテゴリの親IDを取得
+	 * カテゴリ名から子カテゴリの親IDを取得
 	 * @param parentId
 	 * @param categoryName
 	 * @return
 	 */
 	public int findByChildCategoryOfParentId(int parentId, String categoryName);
+	
+	/**
+	 * parentCategory取得
+	 * @return
+	 */
+	public List<String> findParentCategory();
+	
+	/**
+	 * parentCategoryからchildCategory取得
+	 * @param parentCategory
+	 * @return
+	 */
+	public List<String> findChildCategoryByParentCategory(String parentCategory);
+	
+	/**
+	 * childCategoryからgrandChild取得
+	 * @param childCategory
+	 * @return
+	 */
+	public List<String> findGrandChildByChildCategory(String childCategory);
 }

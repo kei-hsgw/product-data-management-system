@@ -17,7 +17,7 @@
         </foreach>
 </insert>
 
-<!-- カテゴリ名から大カテゴリのIDを取得 -->
+<!-- カテゴリ名から親カテゴリのIDを取得 -->
 <select id="findByParentCategoryId" resultType="int">
   SELECT
         id
@@ -27,7 +27,7 @@
         category_name = #{categoryName}
 </select>
 
-<!-- カテゴリ名から中カテゴリの親IDを取得 -->
+<!-- カテゴリ名から子カテゴリの親IDを取得 -->
 <select id="findByChildCategoryOfParentId" resultType="int">
   SELECT
         id
@@ -39,4 +39,69 @@
         category_name = #{categoryName}
 </select>
 
+<!-- parentCategory取得 -->
+<select id="findParentCategory" resultType="String">
+  SELECT
+        category_name
+  FROM
+        category
+  WHERE
+        parent_id IS NULL
+  AND
+        name_all IS NULL
+</select>
+
+<!-- parentCategoryからchildCategory取得 -->
+<select id="findChildCategoryByParentCategory" resultType="String">
+  SELECT
+        category_name
+  FROM
+        category
+  WHERE
+        parent_id IS NOT NULL
+  AND
+        name_all IS NULL
+  AND
+        parent_id
+  IN
+        (
+          SELECT
+                id
+          FROM
+                category
+          WHERE
+                category_name = #{parentCategory}
+          AND
+                parent_id IS NULL
+          AND
+                name_all IS NULL
+        )
+</select>
+
+<!-- childCategoryからgrandChild取得 -->
+<select id="findGrandChildByChildCategory" resultType="String">
+  SELECT
+        category_name
+  FROM
+        category
+  WHERE
+        parent_id IS NOT NULL
+  AND
+        name_all IS NOT NULL
+  AND
+        parent_id
+  IN
+        (
+          SELECT
+                id
+          FROM
+                category
+          WHERE
+                category_name = #{childCategory}
+          AND
+                parent_id IS NOT NULL
+          AND
+                name_all IS NULL
+        )
+</select>
 </mapper>
