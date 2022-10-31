@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.entity.Item;
 import com.example.form.EditForm;
 import com.example.pagenation.Pagenation;
+import com.example.service.CategoryService;
 import com.example.service.ItemService;
 
 @Controller
@@ -20,10 +21,31 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	private CategoryService categoryService;
+	
 	// ページングの処理
 	@ModelAttribute
 	public Pagenation setUpPagenation() {
 		return new Pagenation();
+	}
+	
+	// parentCategoryプルダウン
+	@ModelAttribute(name = "parentCategoryList")
+	public List<String> getParebtCategory() {
+		return categoryService.getParentCategory();
+	}
+	
+	// childCategoryプルダウン
+	@ModelAttribute(name = "childCategoryList")
+	public List<String> getChildCategory() {
+		return categoryService.getChildCategory();
+	}
+	
+	// grandChildプルダウン
+	@ModelAttribute(name = "grandChildList")
+	public List<String> getGrandChild() {
+		return categoryService.getGrandChild();
 	}
 	
 	@ModelAttribute

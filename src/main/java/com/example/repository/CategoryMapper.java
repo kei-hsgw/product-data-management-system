@@ -49,4 +49,16 @@ public interface CategoryMapper {
 	 * @return
 	 */
 	public List<String> findGrandChildByChildCategory(String childCategory);
+	
+	/**
+	 * childCategory取得
+	 * @return
+	 */
+	public List<String> findChildCategory();
+	
+	/**
+	 * grandChild取得
+	 * @return
+	 */
+	public List<String> findGrandChild();
 }

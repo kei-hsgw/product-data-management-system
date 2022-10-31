@@ -58,29 +58,20 @@
         </div>
         <div class="form-group"><i class="fa fa-plus"></i></div>
         <div class="form-group">
-          <select class="form-control">
-            <option>- parentCategory -</option>
-            <option>parentCategory1</option>
-            <option>parentCategory2</option>
-            <option>parentCategory3</option>
-            <option>parentCategory4</option>
-            <option>parentCategory5</option>
+          <select class="form-control" name="parentCategory">
+            <span th:each="parentCategory : ${parentCategoryList}">
+              <option th:value="${parentCategory}" th:text="${parentCategory}"></option>
+            </span>
           </select>
-          <select class="form-control">
-            <option>- childCategory -</option>
-            <option>childCategory1</option>
-            <option>childCategory2</option>
-            <option>childCategory3</option>
-            <option>childCategory4</option>
-            <option>childCategory5</option>
+          <select class="form-control"name="childCategory">
+            <span th:each="childCategory : ${childCategoryList}">
+              <option th::value="${childCategory}" th:text="${childCategory}"></option>
+            </span>
           </select>
-          <select class="form-control">
-            <option>- grandChild -</option>
-            <option>grandChild1</option>
-            <option>grandChild2</option>
-            <option>grandChild3</option>
-            <option>grandChild4</option>
-            <option>grandChild5</option>
+          <select class="form-control" name="grandChild">
+            <span th:each="grandChild : ${grandChildList}">
+              <option th:value="${grandChild}" th:text="${grandChild}"></option>
+            </span>
           </select>
         </div>
         <div class="form-group"><i class="fa fa-plus"></i></div>
