@@ -4,25 +4,45 @@
 <mapper namespace="com.example.repository.ItemMapper">
 
 <!-- item全件取得 -->
-<select id="findAll" resultType="com.example.entity.Item">
+<select id="findAll" resultMap="itemMap">
   SELECT
-        id
-        , name
-        , condition
-        , category
-        , brand
-        , price
-        , shipping
-        , description
+        i.id
+        , i.name
+        , i.condition
+        , c.name_all
+        , i.brand
+        , i.price
+        , i.shipping
+        , i.description
   FROM
-        items
+        items AS i
+  JOIN
+        category AS c
+  ON
+        i.category = c.id
   ORDER BY
-        id
+        i.id
   LIMIT
         #{perPage}
   OFFSET
         #{perPage} * (#{currentPage} - 1)
 </select>
+
+<resultMap id="itemMap" type="com.example.entity.Item">
+  <id property="id" column="id" />
+  <result property="name" column="name" />
+  <result property="condition" column="condition" />
+  <result property="brand" column="brand" />
+  <result property="price" column="price"/>
+  <result property="shipping" column="shipping"/>
+  <result property="description" column="description"/>
+  <association property="category" resultMap="categoryResult" />
+</resultMap>
+
+<resultMap id="categoryResult" type="com.example.entity.Category">
+  <id property="id" column="id" />
+  <result property="nameAll" column="name_all" />
+</resultMap>
 
 <!-- idでitemの詳細情報を取得 -->
 <select id="findById" resultType="com.example.entity.Item">

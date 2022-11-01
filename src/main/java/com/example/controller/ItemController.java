@@ -62,7 +62,6 @@ public class ItemController {
 	@RequestMapping("/showList")
 	public String showList(Pagenation pagenation, Model model) {
 		List<Item> itemList = itemService.getShowList(pagenation);
-		System.out.println(itemList);
 		model.addAttribute("itemList", itemList);
 		return "list";
 	}

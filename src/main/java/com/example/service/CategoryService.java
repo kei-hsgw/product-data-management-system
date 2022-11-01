@@ -24,6 +24,24 @@ public class CategoryService {
 	}
 	
 	/**
+	 * parentCategoryでchildCategory取得
+	 * @param parentCategory
+	 * @return
+	 */
+	public List<String> getChildCategoryByParentCategory(String parentCategory) {
+		return categoryMapper.findChildCategoryByParentCategory(parentCategory);
+	}
+	
+	/**
+	 * childCategoryでgrandChild取得
+	 * @param childCategory
+	 * @return
+	 */
+	public List<String> getGrandChildByChildCategory(String childCategory) {
+		return categoryMapper.findGrandChildByChildCategory(childCategory);
+	}
+	
+	/**
 	 * childCategory取得
 	 * @return
 	 */

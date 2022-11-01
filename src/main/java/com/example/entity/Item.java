@@ -9,7 +9,7 @@ public class Item {
 	/** 状態 */
 	private int condition;
 	/** カテゴリ */
-	private int category;
+	private Category category;
 	/** ブランド */
 	private String brand;
 	/** 価格 */
@@ -22,7 +22,7 @@ public class Item {
 	public Item() {
 	}
 
-	public Item(int id, String name, int condition, int category, String brand, double price, int shipping,
+	public Item(int id, String name, int condition, Category category, String brand, double price, int shipping,
 			String description) {
 		this.id = id;
 		this.name = name;
@@ -58,11 +58,11 @@ public class Item {
 		this.condition = condition;
 	}
 
-	public int getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(int category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
