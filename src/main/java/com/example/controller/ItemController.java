@@ -56,16 +56,15 @@ public class ItemController {
 		return new EditForm();
 	}
 	
-	/**
-	 * トップページ表示
-	 * @param pagenation
-	 * @param model
-	 * @return
-	 */
 	@RequestMapping("/showList")
-	public String showList(Pagenation pagenation, Model model) {
-		List<Item> itemList = itemService.getShowList(pagenation);
+	public String showList(SearchForm searchForm, Pagenation pagenation, Model model) {
+		ItemSearch itemSearch = new ItemSearch();
+		BeanUtils.copyProperties(searchForm, itemSearch);
+		
+		List<Item> itemList = itemService.getSearchList(itemSearch, pagenation);
 		model.addAttribute("itemList", itemList);
+		pagenation = itemService.paging(itemSearch, pagenation);
+		model.addAttribute("pagenation", pagenation);
 		return "list";
 	}
 	
@@ -93,15 +92,5 @@ public class ItemController {
 		Item item = itemService.getShowDetail(Integer.parseInt(id));
 		model.addAttribute("item", item);
 		return "edit";
-	}
-	
-	@RequestMapping("/search")
-	public String serach(SearchForm searchForm, Pagenation pagenation, Model model) {
-		ItemSearch itemSearch = new ItemSearch();
-		BeanUtils.copyProperties(searchForm, itemSearch);
-		
-		List<Item> itemList = itemService.getSearchList(itemSearch, pagenation);
-		model.addAttribute("itemList", itemList);
-		return "list";
 	}
 }

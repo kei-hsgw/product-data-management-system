@@ -117,4 +117,42 @@
         #{pagenation.perPage} * (#{pagenation.currentPage} - 1)
 </select>
 
+<!-- 総レコード数取得 -->
+<select id="countItems" resultType="int">
+  SELECT
+        count(*)
+  FROM
+        items AS i
+  JOIN
+        category AS c
+  ON
+        i.category = c.id
+  WHERE
+        1 = 1
+  <choose>
+    <!-- 親 -->
+    <when test="(parentCategory != null and parentCategory != '') and (childCategory == null or childCategory == '') and (grandChild == null or grandChild == '')">
+      AND c.name_all LIKE #{parentCategory} || '%'
+    </when>
+    <!-- 親・子 -->
+    <when test="(parentCategory != null and parentCategory != '') and (childCategory != null and childCategory != '') and (grandChild == null or grandChild == '')">
+      AND c.name_all LIKE #{parentCategory} || '/' || #{childCategory} || '/' || '%'
+    </when>
+    <!-- 親・子・孫 -->
+    <when test="(parentCategory != null and parentCategory != '') and (childCategory != null and childCategory != '') and (grandChild != null and grandChild != '')">
+      AND c.name_all = #{parentCategory} || '/' || #{childCategory} || '/' || #{grandChild}
+    </when>
+    <otherwise>
+      AND 1 = 1
+    </otherwise>
+  </choose>
+
+  <if test="name != null and name != ''">
+    AND name LIKE '%' || #{name} || '%'
+  </if>
+  <if test="brand != null and brand != ''">
+    AND brand LIKE '%' || #{brand} || '%'
+  </if>
+</select>
+
 </mapper>

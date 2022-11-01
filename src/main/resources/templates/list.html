@@ -32,7 +32,7 @@
 
     <!-- 検索フォーム -->
     <div id="forms">
-      <form th:action="@{/item/search}" class="form-inline" role="form">
+      <form th:action="@{/item/showList}" class="form-inline" role="form">
         <div class="form-group">
           <input type="input" class="form-control" id="name" name="name" placeholder="item name" />
         </div>
@@ -105,15 +105,21 @@
           <li class="next"><a href="#">next &rarr;</a></li>
         </ul>
       </nav>
+
       <!-- ページ番号を指定して表示するフォーム -->
       <div id="select-page">
-        <form class="form-inline">
+        <form class="form-inline" th:action="@{/item/showList}" th:object="${searchForm}">
+          <input type="hidden" name="name" th:field="*{name}">
+          <input type="hidden" name="parentCategory" th:field="*{parentCategory}">
+          <input type="hidden" name="childCategory" th:field="*{childCategory}">
+          <input type="hidden" name="grandChild" th:field="*{grandChild}">
+          <input type="hidden" name="brand" th:field="*{brand}">
           <div class="form-group">
             <div class="input-group col-xs-6">
               <label></label>
-              <input type="text" class="form-control" />
+              <input type="text" class="form-control" name="currentPage" />
               <!-- 総ページ数 -->
-              <div class="input-group-addon">/ 20</div>
+              <div class="input-group-addon" th:text="'/ ' + ${pagenation.totalPage}">/ 20</div>
             </div>
             <div class="input-group col-xs-1">
               <button type="submit" class="btn btn-default">Go</button>

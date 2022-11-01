@@ -32,4 +32,11 @@ public interface ItemMapper {
 	 * @return
 	 */
 	public List<Item> search(ItemSearch itemSearch, Pagenation pagenation);
+	
+	/**
+	 * 総レコード数取得
+	 * @param itemSearch
+	 * @return
+	 */
+	public int countItems(ItemSearch itemSearch);
 }

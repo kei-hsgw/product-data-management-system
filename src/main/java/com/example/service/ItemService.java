@@ -45,4 +45,16 @@ public class ItemService {
 	public List<Item> getSearchList(ItemSearch itemSearch, Pagenation pagenation) {
 		return itemMapper.search(itemSearch, pagenation);
 	}
+	
+	/**
+	 * ページング処理
+	 * @param itemSearch
+	 * @param pagenation
+	 * @return
+	 */
+	public Pagenation paging(ItemSearch itemSearch, Pagenation pagenation) {
+		pagenation.setTotalDisplrays(itemMapper.countItems(itemSearch));
+		pagenation.setTotalPage(pagenation.getPerPage(), pagenation.getTotalDisplrays());
+		return pagenation;
+	}
 }
