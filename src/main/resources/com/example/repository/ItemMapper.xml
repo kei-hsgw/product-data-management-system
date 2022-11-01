@@ -45,20 +45,24 @@
 </resultMap>
 
 <!-- idでitemの詳細情報を取得 -->
-<select id="findById" resultType="com.example.entity.Item">
+<select id="findById" resultMap="itemMap">
   SELECT
-        id
-        , name
-        , condition
-        , category
-        , brand
-        , price
-        , shipping
-        , description
+        i.id
+        , i.name
+        , i.condition
+        , c.name_all
+        , i.brand
+        , i.price
+        , i.shipping
+        , i.description
   FROM
-        items
+        items AS i
+  JOIN
+        category AS c
+  ON
+        i.category = c.id
   WHERE
-        id = #{id}
+        i.id = #{id}
 </select>
 
 </mapper>
