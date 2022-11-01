@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.entity.Item;
+import com.example.entity.ItemSearch;
 import com.example.form.EditForm;
+import com.example.form.SearchForm;
 import com.example.pagenation.Pagenation;
 import com.example.service.CategoryService;
 import com.example.service.ItemService;
@@ -90,5 +93,15 @@ public class ItemController {
 		Item item = itemService.getShowDetail(Integer.parseInt(id));
 		model.addAttribute("item", item);
 		return "edit";
+	}
+	
+	@RequestMapping("/search")
+	public String serach(SearchForm searchForm, Pagenation pagenation, Model model) {
+		ItemSearch itemSearch = new ItemSearch();
+		BeanUtils.copyProperties(searchForm, itemSearch);
+		
+		List<Item> itemList = itemService.getSearchList(itemSearch, pagenation);
+		model.addAttribute("itemList", itemList);
+		return "list";
 	}
 }

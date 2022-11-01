@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.entity.Item;
+import com.example.entity.ItemSearch;
 import com.example.pagenation.Pagenation;
 import com.example.repository.ItemMapper;
 
@@ -33,5 +34,15 @@ public class ItemService {
 	 */
 	public Item getShowDetail(int id) {
 		return itemMapper.findById(id);
+	}
+	
+	/**
+	 * item検索
+	 * @param itemSearch
+	 * @param pagenation
+	 * @return
+	 */
+	public List<Item> getSearchList(ItemSearch itemSearch, Pagenation pagenation) {
+		return itemMapper.search(itemSearch, pagenation);
 	}
 }

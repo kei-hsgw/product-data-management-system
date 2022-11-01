@@ -65,4 +65,56 @@
         i.id = #{id}
 </select>
 
+<!-- item検索 -->
+<select id="search" resultMap="itemMap">
+  SELECT
+        i.id
+        , i.name
+        , i.condition
+        , c.name_all
+        , i.brand
+        , i.price
+        , i.shipping
+        , i.description
+  FROM
+        items AS i
+  JOIN
+        category AS c
+  ON
+        i.category = c.id
+  WHERE
+        1 = 1
+  <choose>
+    <!-- 親 -->
+    <when test="(itemSearch.parentCategory != null and itemSearch.parentCategory != '') and (itemSearch.childCategory == null or itemSearch.childCategory == '') and (itemSearch.grandChild == null or itemSearch.grandChild == '')">
+      AND c.name_all LIKE #{itemSearch.parentCategory} || '%'
+    </when>
+    <!-- 親・子 -->
+    <when test="(itemSearch.parentCategory != null and itemSearch.parentCategory != '') and (itemSearch.childCategory != null and itemSearch.childCategory != '') and (itemSearch.grandChild == null or itemSearch.grandChild == '')">
+      AND c.name_all LIKE #{itemSearch.parentCategory} || '/' || #{itemSearch.childCategory} || '/' || '%'
+    </when>
+    <!-- 親・子・孫 -->
+    <when test="(itemSearch.parentCategory != null and itemSearch.parentCategory != '') and (itemSearch.childCategory != null and itemSearch.childCategory != '') and(itemSearch.grandChild != null and itemSearch.grandChild != '')">
+      AND c.name_all = #{itemSearch.parentCategory} || '/' || #{itemSearch.childCategory} || '/' || #{itemSearch.grandChild}
+    </when>
+    <otherwise>
+      AND 1 = 1
+    </otherwise>
+  </choose>
+
+  <if test="itemSearch.name != null and itemSearch.name != ''">
+    AND name LIKE '%' || #{itemSearch.name} || '%'
+  </if>
+  <if test="itemSearch.brand != null and itemSearch.brand != ''">
+    AND brand LIKE '%' || #{itemSearch.brand} || '%'
+  </if>
+
+  ORDER BY
+        i.id
+  LIMIT
+        #{pagenation.perPage}
+  OFFSET
+        #{pagenation.perPage} * (#{pagenation.currentPage} - 1)
+</select>
+
 </mapper>

@@ -20,7 +20,9 @@ public class CategoryService {
 	 * @return
 	 */
 	public List<String> getParentCategory() {
-		return categoryMapper.findParentCategory();
+		List<String> parentCategoryList = categoryMapper.findParentCategory();
+		parentCategoryList.add(0, "");
+		return parentCategoryList;
 	}
 	
 	/**
@@ -29,7 +31,9 @@ public class CategoryService {
 	 * @return
 	 */
 	public List<String> getChildCategoryByParentCategory(String parentCategory) {
-		return categoryMapper.findChildCategoryByParentCategory(parentCategory);
+		List<String> childCategoryList = categoryMapper.findChildCategoryByParentCategory(parentCategory);
+		childCategoryList.add(0, "");
+		return childCategoryList;
 	}
 	
 	/**
@@ -38,7 +42,9 @@ public class CategoryService {
 	 * @return
 	 */
 	public List<String> getGrandChildByChildCategory(String childCategory) {
-		return categoryMapper.findGrandChildByChildCategory(childCategory);
+		List<String> grandChildList = categoryMapper.findGrandChildByChildCategory(childCategory);
+		grandChildList.add(0, "");
+		return grandChildList;
 	}
 	
 	/**
@@ -46,7 +52,9 @@ public class CategoryService {
 	 * @return
 	 */
 	public List<String> getChildCategory() {
-		return categoryMapper.findChildCategory();
+		List<String> childCategoryList = categoryMapper.findChildCategory();
+		childCategoryList.add(0, "");
+		return childCategoryList;
 	}
 	
 	/**
@@ -54,6 +62,8 @@ public class CategoryService {
 	 * @return
 	 */
 	public List<String> getGrandChild() {
-		return categoryMapper.findGrandChild();
+		List<String> grandChildList = categoryMapper.findGrandChild();
+		grandChildList.add(0, "");
+		return grandChildList;
 	}
 }
