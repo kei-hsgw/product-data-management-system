@@ -67,8 +67,8 @@
     <div class="pages">
       <nav class="page-nav">
         <ul class="pager">
-          <li class="previous"><a href="#">&larr; prev</a></li>
-          <li class="next"><a href="#">next &rarr;</a></li>
+          <li class="previous"><a th:href="@{/item/showList?currentPage=} + ${pagenation.currentPage - 1}" th:value="${pagenation.currentPage - 1}">&larr; prev</a></li>
+          <li class="next"><a th:href="@{/item/showList?currentPage=} + ${pagenation.currentPage + 1}" th:value="${pagenation.currentPage + 1}">next &rarr;</a></li>
         </ul>
       </nav>
     </div>
@@ -101,8 +101,8 @@
     <div class="pages">
       <nav class="page-nav">
         <ul class="pager">
-          <li class="previous"><a href="#">&larr; prev</a></li>
-          <li class="next"><a href="#">next &rarr;</a></li>
+          <li class="previous"><a th:href="@{/item/showList?currentPage=} + ${pagenation.currentPage - 1}" th:value="${pagenation.currentPage - 1}">&larr; prev</a></li>
+          <li class="next"><a th:href="@{/item/showList?currentPage=} + ${pagenation.currentPage + 1}" th:value="${pagenation.currentPage + 1}">next &rarr;</a></li>
         </ul>
       </nav>
 
@@ -119,7 +119,7 @@
               <label></label>
               <input type="text" class="form-control" name="currentPage" />
               <!-- 総ページ数 -->
-              <div class="input-group-addon" th:text="'/ ' + ${pagenation.totalPage}">/ 20</div>
+              <div class="input-group-addon" th:text="${pagenation.currentPage} + ' / ' + ${pagenation.totalPage}"></div>
             </div>
             <div class="input-group col-xs-1">
               <button type="submit" class="btn btn-default">Go</button>
