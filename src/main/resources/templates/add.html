@@ -19,39 +19,20 @@
 </head>
 <body>
   <!-- navbar -->
-  <nav class="navbar navbar-inverse">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="./list.html">Rakus Items</a>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a id="logout" href="./login.html">Logout&nbsp;<i class="fa fa-power-off"></i></a></li>
-        </ul>
-        <p class="navbar-text navbar-right">
-          <span id="loginName">user: userName</span>
-        </p>
-      </div>
-    </div>
-  </nav>
+  <div th:insert="fragment/navbar :: frag_navbar"></div>
 
   <!-- details -->
   <div id="input-main" class="container">
-    <a type="button" class="btn btn-default" href="./list.html"><i class="fa fa-reply"></i> back</a>
+    <a type="button" class="btn btn-default" onclick=history.back()><i class="fa fa-reply"></i> back</a>
     <h2>Add</h2>
 
     <!-- add form -->
-    <form action="#" method="POST" class="form-horizontal">
+    <form th:action="@{/item/insert}" method="POST" class="form-horizontal" th:object="${addForm}">
       <!-- name -->
       <div class="form-group">
         <label for="inputName" class="col-sm-2 control-label">name</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" id="inputName"/>
+          <input type="text" class="form-control" id="inputName" th:field="*{name}" />
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
@@ -59,7 +40,7 @@
       <div class="form-group">
         <label for="price" class="col-sm-2 control-label">price</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" id="price"/>
+          <input type="text" class="form-control" id="price" th:field="*{price}" />
           <span class="text-danger">error:may not be empty</span>
         </div>
       </div>
@@ -67,39 +48,30 @@
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label">category</label>
         <div class="col-sm-8">
-          <select class="form-control">
-            <option>-- parentCategory --</option>
-            <option>parentCategory1</option>
-            <option>parentCategory2</option>
-            <option>parentCategory3</option>
-            <option>parentCategory4</option>
-            <option>parentCategory5</option>
+          <select class="form-control" id="parentCategory">
+            <span th:each="parentCategory : ${parentCategoryList}">
+              <option th:text="${parentCategory}" th:value="${parentCategory}"></option>
+            </span>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label"></label>
         <div class="col-sm-8">
-          <select class="form-control">
-            <option>-- childCategory --</option>
-            <option>childCategory1</option>
-            <option>childCategory2</option>
-            <option>childCategory3</option>
-            <option>childCategory4</option>
-            <option>childCategory5</option>
+          <select class="form-control" id="childCategory">
+            <span th:each="childCategory : ${childCategoryList}">
+              <option th:text="${childCategory}" th:value="${childCategory}"></option>
+            </span>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label for="category" class="col-sm-2 control-label"></label>
         <div class="col-sm-8">
-          <select class="form-control">
-            <option>-- grandChild --</option>
-            <option>grandChild1</option>
-            <option>grandChild2</option>
-            <option>grandChild3</option>
-            <option>grandChild4</option>
-            <option>grandChild5</option>
+          <select class="form-control" id="grandChild">
+            <span th:each="grandChild : ${grandChildList}">
+              <option th:text="${grandChild}" th:value="${grandChild}"></option>
+            </span>
           </select>
         </div>
       </div>

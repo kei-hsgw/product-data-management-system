@@ -39,4 +39,10 @@ public interface ItemMapper {
 	 * @return
 	 */
 	public int countItems(ItemSearch itemSearch);
+	
+	/**
+	 * item追加登録
+	 * @param item
+	 */
+	public void insert(Item item);
 }

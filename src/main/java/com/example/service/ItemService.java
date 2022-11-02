@@ -57,4 +57,12 @@ public class ItemService {
 		pagenation.setTotalPage(pagenation.getPerPage(), pagenation.getTotalDisplrays());
 		return pagenation;
 	}
+	
+	/**
+	 * item追加登録
+	 * @param item
+	 */
+	public void insert(Item item) {
+		itemMapper.insert(item);
+	}
 }

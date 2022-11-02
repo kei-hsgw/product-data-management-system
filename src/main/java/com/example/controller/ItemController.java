@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.entity.Item;
 import com.example.entity.ItemSearch;
+import com.example.form.AddForm;
 import com.example.form.EditForm;
 import com.example.form.SearchForm;
 import com.example.pagenation.Pagenation;
@@ -56,6 +57,18 @@ public class ItemController {
 		return new EditForm();
 	}
 	
+	@ModelAttribute
+	public AddForm setUpAddForm() {
+		return new AddForm();
+	}
+	
+	/**
+	 * 一覧画面表示
+	 * @param searchForm
+	 * @param pagenation
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/showList")
 	public String showList(SearchForm searchForm, Pagenation pagenation, Model model) {
 		ItemSearch itemSearch = new ItemSearch();
@@ -92,5 +105,14 @@ public class ItemController {
 		Item item = itemService.getShowDetail(Integer.parseInt(id));
 		model.addAttribute("item", item);
 		return "edit";
+	}
+	
+	/**
+	 * 追加登録ページ表示
+	 * @return
+	 */
+	@RequestMapping("/add")
+	public String add() {
+		return "add";
 	}
 }

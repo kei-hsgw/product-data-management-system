@@ -155,4 +155,12 @@
   </if>
 </select>
 
+<!-- item追加登録 -->
+<insert id="insert">
+  INSERT INTO items
+        (name, condition, category, brand, price, shipping, description)
+  VALUES
+        (#{name}, #{condition}, #{category}, #{brand}, #{price}, #{shipping}, #{description})
+</insert>
+
 </mapper>
